@@ -12,5 +12,8 @@ def say_hello(request):
     #queryset = Product.objects.filter(title__icontains='coffee') #i for remove case sensitivity
     #queryset = Product.objects.filter(last_update__year=2021)
     queryset = Product.objects.filter(description__isnull=True)
+    
+    #complex query
+    queryset = Product.objects.filter(inventory__lt=10, unit_price__lt=20)  # Products: inventory < 10 AND price < 20
 
     return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
