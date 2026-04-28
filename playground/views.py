@@ -14,6 +14,19 @@ def say_hello(request):
     queryset = Product.objects.filter(description__isnull=True)
     
     #complex query
-    queryset = Product.objects.filter(inventory__lt=10, unit_price__lt=20)  # Products: inventory < 10 AND price < 20
+    #queryset = Product.objects.filter(inventory__lt=10, unit_price__lt=20)  # Products: inventory < 10 AND price < 20
+    #another way
+    #queryset = Product.objects.filter(inventory__lt=10).filter(unit_price__lt=20)  # Products: inventory < 10 AND price < 20
+    #queryset = Product.objects.filter(Q(inventory__lt=10) | Q(unit_price__lt=20))  # Products: inventory < 10 OR price < 20
+    #Using F Object
+    #queryset = Product.objects.filter(inventory=F('Collection_id'))
+    #Sorting
+    #queryset = Product.objects.order_by('title')  # '-title' for descending order
+    #queryset = Product.objects.order_by('unit_price', '-title').reverse()  #can sort by multiple field. the reverse() change the order direction. here for unit price is desc and for -title is asc
+    #queryset = Product.objects.filter(Collection__id=1).order_by('unit_price')
+    #product = Product.objects.order_by('unit_price')[0]
+    product = Product.objects.earliest('unit_price')  #also have latest method
+                                      
 
-    return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
+    #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
+    return render(request, 'hello.html', {'name': 'Sharar', 'product': product}) 
