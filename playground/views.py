@@ -29,7 +29,11 @@ def say_hello(request):
     #product = Product.objects.earliest('unit_price')  #also have latest method
 
      #limiting result
-    queryset = Product.objects.all()[5:10]                                 
+    #queryset = Product.objects.all()[5:10]                                 
+    
+    #Selecting Fields to Query
+    #queryset = Product.objects.values('id', 'title', 'Collection__title')                                 
+    queryset = Product.objects.values_list('id', 'title', 'Collection__title')                                 
 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
-    return render(request, 'hello.html', {'name': 'Sharar', 'products': queryset}) 
+    return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
