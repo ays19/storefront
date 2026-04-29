@@ -12,7 +12,7 @@ def say_hello(request):
     #queryset = Product.objects.filter(collection__id__range=(1, 2, 3))
     #queryset = Product.objects.filter(title__icontains='coffee') #i for remove case sensitivity
     #queryset = Product.objects.filter(last_update__year=2021)
-    queryset = Product.objects.filter(description__isnull=True)
+    #queryset = Product.objects.filter(description__isnull=True)
     
     #complex query
     #queryset = Product.objects.filter(inventory__lt=10, unit_price__lt=20)  # Products: inventory < 10 AND price < 20
@@ -26,8 +26,10 @@ def say_hello(request):
     #queryset = Product.objects.order_by('unit_price', '-title').reverse()  #can sort by multiple field. the reverse() change the order direction. here for unit price is desc and for -title is asc
     #queryset = Product.objects.filter(Collection__id=1).order_by('unit_price')
     #product = Product.objects.order_by('unit_price')[0]
-    product = Product.objects.earliest('unit_price')  #also have latest method
-                                      
+    #product = Product.objects.earliest('unit_price')  #also have latest method
+
+     #limiting result
+    queryset = Product.objects.all()[5:10]                                 
 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
-    return render(request, 'hello.html', {'name': 'Sharar', 'product': product}) 
+    return render(request, 'hello.html', {'name': 'Sharar', 'products': queryset}) 
