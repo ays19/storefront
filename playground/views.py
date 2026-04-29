@@ -35,7 +35,7 @@ def say_hello(request):
     #queryset = Product.objects.values('id', 'title', 'Collection__title')                                 
     #queryset = Product.objects.values_list('id', 'title', 'Collection__title')                                 
     #queryset = OrderItem.objects.values('product__id').distinct()                                 
-    queryset = Product.objects.filter(id__in=OrderItem.objects.values('product__id').distinct())                                 
+    queryset = Product.objects.filter(id__in=OrderItem.objects.values('product__id').distinct()).order_by('title')                                 
 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
     return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
