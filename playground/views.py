@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Q,F # Q for using or operator etc
 from django.core.exceptions import ObjectDoesNotExist
-from store.models import Product
+from store.models import Product, OrderItem
 
 
 def say_hello(request):
@@ -33,7 +33,9 @@ def say_hello(request):
     
     #Selecting Fields to Query
     #queryset = Product.objects.values('id', 'title', 'Collection__title')                                 
-    queryset = Product.objects.values_list('id', 'title', 'Collection__title')                                 
+    #queryset = Product.objects.values_list('id', 'title', 'Collection__title')                                 
+    #queryset = OrderItem.objects.values('product__id').distinct()                                 
+    queryset = Product.objects.filter(id__in=OrderItem.objects.values('product__id').distinct())                                 
 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
     return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
