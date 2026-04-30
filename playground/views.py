@@ -32,10 +32,10 @@ def say_hello(request):
     #queryset = Product.objects.all()[5:10]                                 
     
     #Selecting Fields to Query
-    #queryset = Product.objects.values('id', 'title', 'Collection__title')                                 
+    queryset = Product.objects.values('id', 'title', 'Collection__title')                                 
     #queryset = Product.objects.values_list('id', 'title', 'Collection__title')                                 
     #queryset = OrderItem.objects.values('product__id').distinct()                                 
-    queryset = Product.objects.filter(id__in=OrderItem.objects.values('product__id').distinct()).order_by('title')                                 
+    #product = Product.objects.filter(id__in=OrderItem.objects.values('product__id').distinct()).order_by('title')                                 
 
-    #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
     return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
+    #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
