@@ -33,7 +33,7 @@ def say_hello(request):
     
     #Selecting Fields to Query
     queryset = Product.objects.values('id', 'title', 'Collection__title')                                 
-    #queryset = Product.objects.values_list('id', 'title', 'Collection__title')                                 
+    queryset = Product.objects.values_list('id', 'title', 'Collection__title')                                 
     #queryset = OrderItem.objects.values('product__id').distinct()                                 
     #product = Product.objects.filter(id__in=OrderItem.objects.values('product__id').distinct()).order_by('title')                                 
 
