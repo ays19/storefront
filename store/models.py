@@ -15,8 +15,8 @@ class Product(models.Model):
     unit_price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True)
-    Collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
-    Promotions = models.ManyToManyField(Promotion)
+    collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
+    promotions = models.ManyToManyField(Promotion)
 
 class Customer(models.Model):
     MEMBERSHIP_BRONZE = 'B'

@@ -32,13 +32,17 @@ def say_hello(request):
     #queryset = Product.objects.all()[5:10]                                 
     
     #Selecting Fields to Query
-    queryset = Product.objects.values('id', 'title', 'Collection__title')                                 
+    #queryset = Product.objects.values('id', 'title', 'collection__title')                                 
     #queryset = Product.objects.values_list('id', 'title', 'Collection__title')                                 
     #queryset = OrderItem.objects.values('product__id').distinct()                                 
     #product = Product.objects.filter(id__in=OrderItem.objects.values('product__id').distinct()).order_by('title')                                 
     #Deferring Fields
     #queryset = Product.objects.only('id', 'title')                      
-    queryset = Product.objects.defer('description')                      
+    #queryset = Product.objects.defer('description')                      
+    #Selecting releated object
+    #queryset = Product.objects.select_related('collection').all()                      
+    #Prefetch releated object
+    queryset = Product.objects.prefetch_related('promotions').select_related('collection').all()                      
 
     return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
