@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Q,F # Q for using or operator etc
 from django.core.exceptions import ObjectDoesNotExist
-from store.models import Product, OrderItem
+from store.models import Product, Order, OrderItem
 
 
 def say_hello(request):
@@ -42,7 +42,8 @@ def say_hello(request):
     #Selecting releated object
     #queryset = Product.objects.select_related('collection').all()                      
     #Prefetch releated object
-    queryset = Product.objects.prefetch_related('promotions').select_related('collection').all()                      
-
-    return render(request, 'hello.html', {'name': 'Sharar', 'products': list(queryset)}) 
+    #queryset = Product.objects.prefetch_related('promotions').select_related('collection').all()                      
+    queryset = Order.objects.select_related('customer').prefetch_related('orderitem_set__product').order_by('-placed_at')[:5]
+    
+    return render(request, 'hello.html', {'name': 'Sharar', 'orders': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
