@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q,F # Q for using or operator etc
+from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from django.core.exceptions import ObjectDoesNotExist
 from store.models import Product, Order, OrderItem
 
@@ -43,7 +44,11 @@ def say_hello(request):
     #queryset = Product.objects.select_related('collection').all()                      
     #Prefetch releated object
     #queryset = Product.objects.prefetch_related('promotions').select_related('collection').all()                      
-    queryset = Order.objects.select_related('customer').prefetch_related('orderitem_set__product').order_by('-placed_at')[:5]
-    
-    return render(request, 'hello.html', {'name': 'Sharar', 'orders': list(queryset)}) 
+    #queryset = Order.objects.select_related('customer').prefetch_related('orderitem_set__product').order_by('-placed_at')[:5]
+   #Aggregating Objects
+    #result = Product.objects.filter(collection__id=100).aggregate(count=Count('id'), min_price=Min('unit_price'), max_price=Max('unit_price'), avg_price=Avg('unit_price'))
+    result = Product.objects.aggregate(count=Count('id'), min_price=Min('unit_price'), max_price=Max('unit_price'), avg_price=Avg('unit_price'))
+
+    #return render(request, 'hello.html', {'name': 'Sharar', 'orders': list(queryset)}) 
+    return render(request, 'hello.html', {'name': 'Sharar', 'result': result}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
