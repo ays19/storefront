@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Q,F # Q for using or operator etc
+from django.db.models import Q, F, Func  # Q for using or operator etc, F for refference fields
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from django.db.models import Value
 from django.core.exceptions import ObjectDoesNotExist
@@ -52,7 +52,9 @@ def say_hello(request):
     #return render(request, 'hello.html', {'name': 'Sharar', 'orders': list(queryset)}) 
     #Annotating objects
     #queryset = Customer.objects.annotate(is_new=Value(True)) #we can not pass bolean value here. so that import value.
-    queryset = Customer.objects.annotate(new_id=F('id') + 1)
+    #queryset = Customer.objects.annotate(new_id=F('id') + 1)
+    #Calling database Functios
+    queryset = Customer.objects.annotate(full_name=Func(F('first_name'), Value(' '), F('last_name'), function='CONCAT'))
 
     return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
