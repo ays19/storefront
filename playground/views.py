@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db.models import Q, F, Func  # Q for using or operator etc, F for refference fields
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from django.db.models import Value
+from django.db.models.functions import Concat
 from django.core.exceptions import ObjectDoesNotExist
 from store.models import Customer, Product, Order, OrderItem
 
@@ -54,7 +55,11 @@ def say_hello(request):
     #queryset = Customer.objects.annotate(is_new=Value(True)) #we can not pass bolean value here. so that import value.
     #queryset = Customer.objects.annotate(new_id=F('id') + 1)
     #Calling database Functios
-    queryset = Customer.objects.annotate(full_name=Func(F('first_name'), Value(' '), F('last_name'), function='CONCAT'))
+    #queryset = Customer.objects.annotate(full_name=Func(F('first_name'), Value(' '), F('last_name'), function='CONCAT'))
+    #Using Concat Class
+    #queryset = Customer.objects.annotate(full_name=Concat('first_name', Value(' '), 'last_name'))  #Using concat class code make sorter, the upper of this code is not use concat class but result is same
+    #Grouping data
+    queryset = Customer.objects.annotate(orders_count=Count('order'))
 
     return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
