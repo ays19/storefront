@@ -92,7 +92,7 @@ def say_hello(request):
 
     # Collection.objects.filter(id__gt=5).delete()
     
-    #Transaction
+    # #Transaction
     # with transaction.atomic():
     #     order = Order()
     #     order.customer_id = 1
