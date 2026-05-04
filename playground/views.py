@@ -110,10 +110,10 @@ def say_hello(request):
     # cursor = connection.cursor()
     # cursor.execute('')
     # cursor.close()
-    with connection.cursor() as cursor:
+    #with connection.cursor() as cursor:
         #cursor.execute('')
-        cursor.callproc('get_customers', [1, 2, 'a'])
+      #  cursor.callproc('get_customers', [1, 2, 'a'])
 
-    #return render(request, 'hello.html', {'name': 'Sharar'})
-    return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
+    return render(request, 'hello.html', {'name': 'Sharar'})
+    #return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
