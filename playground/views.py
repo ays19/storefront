@@ -3,7 +3,7 @@ from django.db.models import Q, F, Func  # Q for using or operator etc, F for re
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from django.db.models import Value, ExpressionWrapper, DecimalField
 from django.db.models.functions import Concat
-from django.db import transaction
+from django.db import transaction, connection
 from django.core.exceptions import ObjectDoesNotExist
 from store.models import Collection, Customer, Product, Order, OrderItem
 from django.contrib.contenttypes.models import ContentType
@@ -93,18 +93,27 @@ def say_hello(request):
     # Collection.objects.filter(id__gt=5).delete()
     
     #Transaction
-    with transaction.atomic():
-        order = Order()
-        order.customer_id = 1
-        order.save()
+    # with transaction.atomic():
+    #     order = Order()
+    #     order.customer_id = 1
+    #     order.save()
 
-        item = OrderItem()
-        item.order = order
-        item.product_id = 1
-        item.quantity =1 
-        item.unit_price = 10
-        item.save()
+    #     item = OrderItem()
+    #     item.order = order
+    #     item.product_id = 1
+    #     item.quantity =1 
+    #     item.unit_price = 10
+    #     item.save()
 
-    return render(request, 'hello.html', {'name': 'Sharar'})
-    #return render(request, 'hello.html', {'name': 'Sharar', 'tags': list(queryset)}) 
+    #Executing Raw SQL Queries
+    #queryset = Product.objects.raw('SELECT *  FROM store_product')
+    # cursor = connection.cursor()
+    # cursor.execute('')
+    # cursor.close()
+    with connection.cursor() as cursor:
+        #cursor.execute('')
+        cursor.callproc('get_customers', [1, 2, 'a'])
+
+    #return render(request, 'hello.html', {'name': 'Sharar'})
+    return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
