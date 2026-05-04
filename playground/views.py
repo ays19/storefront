@@ -67,8 +67,26 @@ def say_hello(request):
     #discounted_price=ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
     #queryset = Product.objects.annotate(discounted_price=discounted_price)
     #Querying Generic Relationships
-    content_type = ContentType.objects.get_for_model(Product, 1)
+    #content_type = ContentType.objects.get_for_model(Product, 1)
+    #Understanding Queryset Cache
+    #queryset = Product.objects.all()
+    #queryset[0]
+    #list(queryset)
+    #Creating Objects
+    #collection = Collection()
+    #collection.title = 'Video Games'
+    #collection.featured_product = Product(pk=11)
+    #collection.save()
+
+    #Updating Object
+    #collection = Collection.objects.get(pk=11)
+    #collection.featured_product = None
+    #collection.save()
+
+    Collection.objects.filter(pk=11).update(featured_production=None)
+
     
 
-    return render(request, 'hello.html', {'name': 'Sharar', 'tags': list(queryset)}) 
+    return render(request, 'hello.html', {'name': 'Sharar'})
+    #return render(request, 'hello.html', {'name': 'Sharar', 'tags': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
