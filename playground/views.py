@@ -85,11 +85,23 @@ def say_hello(request):
 
     #Collection.objects.filter(pk=11).update(featured_product=None)
     #Deleting Objects
-    collection = Collection(pk=11)
-    collection.delete()
+    # collection = Collection(pk=11)
+    # collection.delete()
 
-    Collection.objects.filter(id__gt=5).delete()
+    # Collection.objects.filter(id__gt=5).delete()
     
+    #Transaction
+    with transaction.atomic():
+        order = Order()
+        order.customer_id = 1
+        order.save()
+
+        item = OrderItem()
+        item.order = order
+        item.product_id = 1
+        item.quantity =1 
+        item.unit_price = 10
+        item.save()
 
     return render(request, 'hello.html', {'name': 'Sharar'})
     #return render(request, 'hello.html', {'name': 'Sharar', 'tags': list(queryset)}) 
