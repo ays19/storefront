@@ -67,7 +67,7 @@ def say_hello(request):
     #discounted_price=ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
     #queryset = Product.objects.annotate(discounted_price=discounted_price)
     #Querying Generic Relationships
-    content_type = ContentType.objects.get_for_model(Product)
+    content_type = ContentType.objects.get_for_model(Product, 1)
     
 
     return render(request, 'hello.html', {'name': 'Sharar', 'tags': list(queryset)}) 

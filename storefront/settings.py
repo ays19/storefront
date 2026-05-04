@@ -92,6 +92,7 @@ DATABASES = {
         'PASSWORD': 'Ays19@Ubuntu26',
         'HOST': 'localhost',
         'PORT': '3306',
+        'CONN_MAX_AGE': 600,
     }
 }
 
