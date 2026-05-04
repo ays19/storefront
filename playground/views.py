@@ -58,7 +58,7 @@ def say_hello(request):
     #return render(request, 'hello.html', {'name': 'Sharar', 'orders': list(queryset)}) 
     #Annotating objects
     #queryset = Customer.objects.annotate(is_new=Value(True)) #we can not pass bolean value here. so that import value.
-    #queryset = Customer.objects.annotate(new_id=F('id') + 1)
+    #queryset = Customer.objects.annotate(new_Executing Raw SQL Queriesid=F('id') + 1)
     #Calling database Functios
     #queryset = Customer.objects.annotate(full_name=Func(F('first_name'), Value(' '), F('last_name'), function='CONCAT'))
     #Using Concat Class
