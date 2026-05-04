@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.db.models import Q, F, Func  # Q for using or operator etc, F for refference fields
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
-from django.db.models import Value
+from django.db.models import Value, ExpressionWrapper, DecimalField
 from django.db.models.functions import Concat
 from django.core.exceptions import ObjectDoesNotExist
 from store.models import Customer, Product, Order, OrderItem
+from django.contrib.contenttypes.models import ContentType
+from store.models import Product
+from tags.models import TaggedItem
 
 
 def say_hello(request):
@@ -59,7 +62,13 @@ def say_hello(request):
     #Using Concat Class
     #queryset = Customer.objects.annotate(full_name=Concat('first_name', Value(' '), 'last_name'))  #Using concat class code make sorter, the upper of this code is not use concat class but result is same
     #Grouping data
-    queryset = Customer.objects.annotate(orders_count=Count('order'))
+    #queryset = Customer.objects.annotate(orders_count=Count('order'))
+    #Expression wrapper
+    #discounted_price=ExpressionWrapper(F('unit_price') * 0.8, output_field=DecimalField())
+    #queryset = Product.objects.annotate(discounted_price=discounted_price)
+    #Querying Generic Relationships
+    content_type = ContentType.objects.get_for_model(Product)
+    
 
-    return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
+    return render(request, 'hello.html', {'name': 'Sharar', 'tags': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
