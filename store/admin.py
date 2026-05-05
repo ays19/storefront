@@ -23,7 +23,9 @@ class InventoryFilter(admin.SimpleListFilter):
 #Customize the list page
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-   
+    #fields = ['title', 'slug']  #Customizing form
+    #exclude = ['promotions']  #Customizing form
+    #readonly_fields = ['promotions']  #Customizing form
     actions = ['clear_inventory']
     list_display = ['title', 'unit_price', 'inventory_status', 'collection_title']
     list_editable = ['unit_price']
