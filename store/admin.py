@@ -6,11 +6,28 @@ from django.utils.html import format_html, urlencode
 
 # Register your models here.
 
+class InventoryFilter(admin.SimpleListFilter):
+    title = 'inventory'
+    parameter_name = 'inventory'
+
+    def lookups(self, request, model_admin):
+        return [
+            ('<10', 'Low Inventory')
+        ]
+    
+    def queryset(self, request, queryset: QuerySet):
+        if self.value() == '<10':
+            return queryset.filter(inventory__lt=10)
+        return queryset
+
 #Customize the list page
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
+    fields = ['title', 'slug']
+    actions = ['clear_inventory']
     list_display = ['title', 'unit_price', 'inventory_status', 'collection_title']
     list_editable = ['unit_price']
+    list_filter = ['collection', 'last_update', InventoryFilter]
     list_per_page = 10
     list_select_related = ['collection']
 
@@ -23,6 +40,15 @@ class ProductAdmin(admin.ModelAdmin):
         if product.inventory < 10:
             return 'Low'
         return 'In Stock'
+    
+    @admin.action(description='Clear inventory')
+    def clear_inventory(self, request, queryset):
+        updated_count = queryset.update(inventory=0)
+        self.message_user(
+            request,
+            f'{updated_count} products were successfully updated.'
+            messages.ERROR
+        )
 
 @admin.register(models.Customer)
 class CustomerAdmin(admin.ModelAdmin):
