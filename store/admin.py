@@ -23,6 +23,8 @@ class InventoryFilter(admin.SimpleListFilter):
 #Customize the list page
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['collection']
+    prepopulated_fields = {'slug': ['title']}
     #fields = ['title', 'slug']  #Customizing form
     #exclude = ['promotions']  #Customizing form
     #readonly_fields = ['promotions']  #Customizing form
