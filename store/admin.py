@@ -1,6 +1,6 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from . import models
-from django.db.models import Count
+from django.db.models import Count, QuerySet
 from django.urls import reverse
 from django.utils.html import format_html, urlencode
 
@@ -23,7 +23,7 @@ class InventoryFilter(admin.SimpleListFilter):
 #Customize the list page
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    fields = ['title', 'slug']
+   
     actions = ['clear_inventory']
     list_display = ['title', 'unit_price', 'inventory_status', 'collection_title']
     list_editable = ['unit_price']
@@ -46,7 +46,7 @@ class ProductAdmin(admin.ModelAdmin):
         updated_count = queryset.update(inventory=0)
         self.message_user(
             request,
-            f'{updated_count} products were successfully updated.'
+            f'{updated_count} products were successfully updated.',
             messages.ERROR
         )
 
