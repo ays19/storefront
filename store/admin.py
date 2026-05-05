@@ -23,6 +23,7 @@ class InventoryFilter(admin.SimpleListFilter):
 #Customize the list page
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
+    search_fields = ['title']
     autocomplete_fields = ['collection']
     prepopulated_fields = {'slug': ['title']}
     #fields = ['title', 'slug']  #Customizing form
@@ -77,11 +78,19 @@ class CustomerAdmin(admin.ModelAdmin):
                 }))
         return format_html('<a href="{}">{}</a>', url, customer.orders_count)
 
+class OrderItemInline(admin.StackedInline):
+    autocomplete_fields = ['product']
+    model = models.OrderItem
+    min_num =1
+    max_num = 10
+    extra = 0
+
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'placed_at', 'customer']    
     autocomplete_fields = ['customer']
-    
+    inlines = [OrderItemInline]
+    list_display = ['id', 'placed_at', 'customer']    
+       
 
 @admin.register(models.Collection)
 class CollectionAdmin(admin.ModelAdmin):
