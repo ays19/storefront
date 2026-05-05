@@ -80,10 +80,13 @@ class CustomerAdmin(admin.ModelAdmin):
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'placed_at', 'customer']    
+    autocomplete_fields = ['customer']
+    
 
 @admin.register(models.Collection)
 class CollectionAdmin(admin.ModelAdmin):
     list_display = ['title', 'products_count']    
+    search_fields = ['title']
 
     @admin.display(ordering='products_count')
     def products_count(self, collection):
