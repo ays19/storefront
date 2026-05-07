@@ -6,4 +6,8 @@ from rest_framework.response import Response
 # Create your views here.
 @api_view()
 def product_list(request):
-    return HttpResponse("OK")
+    return Response("OK")
+
+@api_view()
+def product_detail(request, id): 
+    return Response(id)
