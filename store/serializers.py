@@ -8,6 +8,13 @@ class CollectionSerializer(serializers.ModelSerializer):
         model = Collection
         fields = ['id', 'title']
 
+class CollectionSerializer(serializers.Serializer):
+    class Meta:
+        model = Collection
+        fields = ['id', 'title', 'products_count']
+
+    products_count = serializers.ImageField() 
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
