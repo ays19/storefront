@@ -1,6 +1,7 @@
 from urllib import request
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework.decorators import api_view
@@ -14,9 +15,11 @@ from .serializers import ProductSerializer, CollectionSerializer, ReviewSerializ
 
 # Create your views here.
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.select_related('collection').all()
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
-       
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['collection_id']
+
     def get_serializer_context(self):
         return {'request': self.request}
    
@@ -46,3 +49,4 @@ class ReviewViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'product_id': self.kwargs['product_pk']}
+    

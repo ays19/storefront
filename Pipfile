@@ -12,6 +12,7 @@ pillow = "==12.2.0"
 sqlparse = "==0.5.5"
 djangorestframework = "*"
 drf-nested-routers = "*"
+django-filter = "*"
 
 [dev-packages]
 
