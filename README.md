@@ -1,28 +1,24 @@
 # Storefront
 
-A production-focused e-commerce backend project built with Django and Django REST framework.
+A production-focused e-commerce backend project built with Django, REST APIs, and modern backend engineering practices.
 
-This project was built as part of my backend engineering journey to deeply understand Django, database design, API development, performance optimization, testing, and deployment.
-
-This project is designed to explore real-world backend engineering, focusing on scalable architecture, clean code practices, API development, performance optimization, and production-ready workflows. Many core features have already been implemented, with additional advanced features currently in progress.
+This project focuses on scalable architecture, clean code, API development, performance optimization, and production-ready engineering workflows. Many core features have already been implemented, with additional advanced capabilities currently in development.
 
 ---
 
-## Project Goals
+## Project Overview
 
-This project was built to:
+This project was built to gain hands-on experience in:
 
-- Master Django fundamentals and architecture
-- Understand Django internals and request lifecycle
-- Design scalable database models
-- Build secure RESTful APIs
-- Apply clean code and industry best practices
-- Work with background tasks and performance optimization
-- Learn production-ready deployment workflows
+- Backend application architecture
+- Database design and optimization
+- REST API development
+- Authentication and authorization
+- Background task processing
+- Performance testing and profiling
+- Production deployment practices
 
 ---
-
-
 
 ## Tech Stack
 
@@ -50,72 +46,63 @@ This project was built to:
 
 ### Deployment
 - Heroku
----
-
-## Features Already Implemented
-
-### Django Core
-✅ Project and app architecture  
-✅ Models and relationships  
-✅ Database migrations  
-✅ Django ORM queries  
-✅ Django admin customization  
-✅ Dummy data generation  
-✅ Content Types Framework  
-✅ Static file management  
-✅ Logging and configuration management  
 
 ---
+
+## Features Implemented
+
+### Core Django Development
+- Django project architecture
+- Application modularization
+- Models and database relationships
+- Django ORM queries
+- Database migrations
+- Admin panel customization
+- Static file management
+- Logging and configuration management
+
+### Advanced Database Design
+- Relational database modeling
+- Generic relationships using Content Types Framework
+- Dummy data generation and database seeding
 
 ### REST API Development
+- RESTful API design
+- Class-based views
+- Serializers
+- Mixins and generic views
+- Router-based URL generation
+- File upload APIs
 
-✅ RESTful API design  
-✅ Class-based views  
-✅ Serializers  
-✅ Mixins  
-✅ Generic views  
-✅ Routers  
-✅ Nested resources  
-✅ File upload APIs  
-
----
-
-### Data Handling
-
-✅ Filtering  
-✅ Searching  
-✅ Sorting  
-✅ Pagination  
-
----
+### Data Management
+- Filtering
+- Searching
+- Sorting
+- Pagination
 
 ### Authentication & Security
-
-✅ Django Authentication System  
-✅ JSON Web Token (JWT) authentication  
-✅ API permissions and access control  
-
----
+- Django Authentication System
+- JWT Authentication
+- Permission-based access control
 
 ### Application Architecture
-
-✅ Signals for decoupled communication  
-✅ Email integration  
-✅ Modular app design  
-✅ Clean architecture practices  
+- Signals for decoupled app communication
+- Email integration
+- Modular backend design
+- Clean code practices
 
 ---
 
 ## Features In Progress
 
-Currently working on implementing:
+Currently working on:
 
-- Background jobs with Celery  
-- Caching with Redis  
-- Performance testing with Locust  
-- Application profiling with Silk  
-- Automated testing with Pytest  
-- Production deployment improvements  
+- Background jobs with Celery
+- Caching with Redis
+- Performance testing with Locust
+- Application profiling with Silk
+- Automated testing with Pytest
+- Deployment optimization
 
 ---
 
@@ -124,72 +111,56 @@ Currently working on implementing:
 ```bash
 storefront/
 │
-├── storefront/       # Main project settings
-├── store/            # Core e-commerce logic
-├── likes/            # Generic relationships
-├── playground/       # Testing and experimentation
+├── storefront/      # Project settings and configuration
+├── store/           # Core business logic
+├── likes/           # Generic relationships
+├── playground/      # Testing and experimentation
 ├── manage.py
 └── Pipfile
 ```
 
 ---
 
-## Installation & Setup
+## Installation
 
-### 1. Clone repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/ays19/storefront.git
 cd storefront
 ```
 
-### 2. Install dependencies
+### Install dependencies
 
 ```bash
 pipenv install
 ```
 
-### 3. Activate shell
+### Activate environment
 
 ```bash
 pipenv shell
 ```
 
-### 4. Configure database
-
-Create your `.env` file and configure your database settings.
-
-Example:
-
-```env
-DB_NAME=your_database_name
-DB_USER=your_username
-DB_PASSWORD=your_password
-DB_HOST=localhost
-DB_PORT=3306
-```
-
----
-
-### 5. Run migrations
+### Apply migrations
 
 ```bash
 python manage.py migrate
 ```
 
-### 6. Create superuser
+### Create superuser
 
 ```bash
 python manage.py createsuperuser
 ```
 
-### 7. Run development server
+### Run development server
 
 ```bash
 python manage.py runserver
 ```
 
-Application will run at:
+Application will be available at:
 
 ```bash
 http://127.0.0.1:8000/
@@ -204,11 +175,11 @@ This project includes APIs for:
 - Products
 - Collections
 - Customers
-- Orders
 - Shopping Cart
+- Orders
 - Reviews
-- File Uploads
 - Authentication
+- File Uploads
 
 ---
 
@@ -216,27 +187,26 @@ This project includes APIs for:
 
 This project follows:
 
-- Clean code principles
-- Modular architecture
+- Clean architecture principles
 - Separation of concerns
 - Reusable components
 - API-first development
-- Performance optimization mindset
+- Performance optimization
 - Debugging and troubleshooting workflows
 
 ---
 
 ## Learning Outcomes
 
-Through this project, I gained hands-on experience in:
+Through this project, I gained practical experience in:
 
-- Real-world Django development
+- Backend engineering
 - Database design
 - API architecture
 - Authentication systems
 - Performance optimization
 - Testing strategies
-- Production deployment
+- Deployment workflows
 
 ---
 
@@ -244,7 +214,7 @@ Through this project, I gained hands-on experience in:
 
 Planned improvements:
 
-- Docker support
+- Docker containerization
 - CI/CD pipeline
 - Kubernetes deployment
 - Monitoring and observability
@@ -257,12 +227,10 @@ Planned improvements:
 
 **ays19**
 
-Software Engineer focused on backend engineering, Django, APIs, system design, and AI-powered applications.
+Software Engineer focused on backend engineering, APIs, system design, and AI-powered applications.
 
-### Connect with me
-
-GitHub: [Ays19 GitHub](https://github.com/ays19?utm_source=chatgpt.com)
+GitHub: https://github.com/ays19
 
 ---
 
-⭐ If you found this project useful, feel free to star the repository.
+⭐ If you find this project useful, feel free to star the repository.
