@@ -132,7 +132,12 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'customer', 'placed_at', 'payment_status', 'items']
- 
+
+class UpdateOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['payment_status']
+
 class CreateOrderSerializer(serializers.Serializer):
     cart_id = serializers.UUIDField() 
 
@@ -152,7 +157,7 @@ class CreateOrderSerializer(serializers.Serializer):
             cart_items = CartItem.objects.select_related('product').filter(
                cart_id=cart_id)
 
-            order_items = [
+            order_items = [ 
                 OrderItem(
                     order=order,
                     product=item.product,
