@@ -21,7 +21,7 @@ from .models import Cart, CartItem, Order, OrderItem, Product, Collection, Produ
 from .serializers import AddCartItemSerializer, CreateOrderSerializer, CustomerSerializer, CartItemSerializer, CartSerializer, OrderSerializer, OrderSerializer, ProductImageSerializer, ProductSerializer, CollectionSerializer, ReviewSerializer, UpdateCartItemSerializer, UpdateOrderSerializer
 # Create your views here.
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.prefetch_related('images').all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = ProductFilter
