@@ -8,13 +8,13 @@ asgiref = "==3.11.1"
 django = "==6.0.4"
 django-debug-toolbar = "==6.3.0"
 mysqlclient = "==2.2.8"
-pillow = "==12.2.0"
 sqlparse = "==0.5.5"
 djangorestframework = "*"
 drf-nested-routers = "*"
 django-filter = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
+pillow = "*"
 
 [dev-packages]
 
