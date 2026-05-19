@@ -16,10 +16,18 @@ class InventoryFilter(admin.SimpleListFilter):
         ]
     
     def queryset(self, request, queryset: QuerySet):
-        if self.value() == '<10':
+        if self.value() == '<1 0':
             return queryset.filter(inventory__lt=10)
         return queryset
 
+class ProductImageInline(admin.TabularInline):
+    model = models.ProductImage
+    readonly_fields = ['thumbnail']
+
+    def thumbnail(self, instance):
+        if instance.image.name != '':
+            return format_html('<img src="{}" class="thumbnail" />', instance.image.url)
+        return ''
 
 #Customize the list page
 @admin.register(models.Product)
@@ -31,6 +39,7 @@ class ProductAdmin(admin.ModelAdmin):
     #exclude = ['promotions']  #Customizing form
     #readonly_fields = ['promotions']  #Customizing form
     actions = ['clear_inventory']
+    inlines = [ProductImageInline]
     list_display = ['title', 'unit_price', 'inventory_status', 'collection_title']
     list_editable = ['unit_price']
     list_filter = ['collection', 'last_update', InventoryFilter]
@@ -55,6 +64,11 @@ class ProductAdmin(admin.ModelAdmin):
             f'{updated_count} products were successfully updated.',
             messages.ERROR
         )
+
+    class Media:
+        css = {
+            'all': ['store/styles.css']
+        }
 
 @admin.register(models.Customer)
 class CustomerAdmin(admin.ModelAdmin):
