@@ -1,4 +1,6 @@
+from django.core.mail import send_mail, mail_admins, EmailMessage, BadHeaderError
 from django.shortcuts import render
+from templated_mail.mail import BaseEmailMessage
 from django.db.models import Q, F, Func  # Q for using or operator etc, F for refference fields
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from django.db.models import Value, ExpressionWrapper, DecimalField
@@ -12,7 +14,7 @@ from tags.models import TaggedItem
 
 
 
-def say_hello(request):
+#def say_hello(request):
     
     #product = Product.objects.filter(pk=0).first() #can use try-catch but it is better
     #exists = Product.objects.filter(pk=0).exists()
@@ -61,7 +63,7 @@ def say_hello(request):
     #queryset = Customer.objects.annotate(new_Executing Raw SQL Queriesid=F('id') + 1)
     #Calling database Functios
     #queryset = Customer.objects.annotate(full_name=Func(F('first_name'), Value(' '), F('last_name'), function='CONCAT'))
-    #Using Concat Class
+    #Using Concat Class 
     #queryset = Customer.objects.annotate(full_name=Concat('first_name', Value(' '), 'last_name'))  #Using concat class code make sorter, the upper of this code is not use concat class but result is same
     #Grouping data
     #queryset = Customer.objects.annotate(orders_count=Count('order'))
@@ -114,6 +116,20 @@ def say_hello(request):
         #cursor.execute('')
       #  cursor.callproc('get_customers', [1, 2, 'a'])
 
+def say_hello(request):
+    try:
+        #send_mail('subject', 'message', 'from@example.com', ['to@example.com'])
+        #mail_admins('subject', 'message', html_message='message')
+        # message = EmailMessage('subject', 'message', 'from@example.com', ['to@example.com'])
+        # message.attach_file('playground/static/images/2.jpg')
+        # message.send( )
+        message = BaseEmailMessage(
+            template_name='emails/hello.html',
+            context={'name': 'Sharar'}
+        )
+        message.send(['to@example.com'])
+    except BadHeaderError:
+        pass
     return render(request, 'hello.html', {'name': 'Sharar'})
     #return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
