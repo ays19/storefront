@@ -1,5 +1,6 @@
 from django.core.mail import send_mail, mail_admins, EmailMessage, BadHeaderError
 from django.shortcuts import render
+from .tasks import notify_customers
 from templated_mail.mail import BaseEmailMessage
 from django.db.models import Q, F, Func  # Q for using or operator etc, F for refference fields
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
@@ -117,19 +118,20 @@ from tags.models import TaggedItem
       #  cursor.callproc('get_customers', [1, 2, 'a'])
 
 def say_hello(request):
-    try:
+    #try:
         #send_mail('subject', 'message', 'from@example.com', ['to@example.com'])
         #mail_admins('subject', 'message', html_message='message')
         # message = EmailMessage('subject', 'message', 'from@example.com', ['to@example.com'])
         # message.attach_file('playground/static/images/2.jpg')
         # message.send( )
-        message = BaseEmailMessage(
-            template_name='emails/hello.html',
-            context={'name': 'Sharar'}
-        )
-        message.send(['to@example.com'])
-    except BadHeaderError:
-        pass
+    #     message = BaseEmailMessage(
+    #         template_name='emails/hello.html',
+    #         context={'name': 'Sharar'}
+    #     )
+    #     message.send(['to@example.com'])
+    # except BadHeaderError:
+    #     pass
+    notify_customers.delay('Hello, customers!')
     return render(request, 'hello.html', {'name': 'Sharar'})
     #return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
