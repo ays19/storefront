@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.core.mail import send_mail, mail_admins, EmailMessage, BadHeaderError
 from django.shortcuts import render
 from .tasks import notify_customers
@@ -12,7 +13,7 @@ from store.models import Collection, Customer, Product, Order, OrderItem
 from django.contrib.contenttypes.models import ContentType
 from store.models import Product
 from tags.models import TaggedItem
-
+import requests
 
 
 #def say_hello(request):
@@ -131,7 +132,13 @@ def say_hello(request):
     #     message.send(['to@example.com'])
     # except BadHeaderError:
     #     pass
-    notify_customers.delay('Hello, customers!')
-    return render(request, 'hello.html', {'name': 'Sharar'})
+    #notify_customers.delay('Hello, customers!')
+    key = 'httpbin_result'
+    if cache.get(key) is None:
+        response = requests.get('https://httpbin.org/delay/1')
+        data = response.json()
+        cache.set(key, data)
+    
+    return render(request, 'hello.html', {'name': cache.get(key)})
     #return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
