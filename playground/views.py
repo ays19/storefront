@@ -13,6 +13,8 @@ from store.models import Collection, Customer, Product, Order, OrderItem
 from django.contrib.contenttypes.models import ContentType
 from store.models import Product
 from tags.models import TaggedItem
+from django.views.decorators.cache import cache_page 
+from rest_framework.views import APIView
 import requests
 
 
@@ -118,7 +120,8 @@ import requests
         #cursor.execute('')
       #  cursor.callproc('get_customers', [1, 2, 'a'])
 
-def say_hello(request):
+# @cache_page(5 * 60)
+# def say_hello(request):
     #try:
         #send_mail('subject', 'message', 'from@example.com', ['to@example.com'])
         #mail_admins('subject', 'message', html_message='message')
@@ -133,12 +136,18 @@ def say_hello(request):
     # except BadHeaderError:
     #     pass
     #notify_customers.delay('Hello, customers!')
-    key = 'httpbin_result'
-    if cache.get(key) is None:
+
+class HelloView(APIView):
+    def get(self, request):
         response = requests.get('https://httpbin.org/delay/1')
-        data = response.json()
-        cache.set(key, data)
+        data = response.json()  
+        return render(request, 'hello.html', {'name': 'Sharar'})
+
+# @cache_page(5 * 60)
+# def say_hello(request):
+    # response = requests.get('https://httpbin.org/delay/1')
+    # data = response.json()
     
-    return render(request, 'hello.html', {'name': cache.get(key)})
+    # return render(request, 'hello.html', {'name': 'Sharar'})
     #return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
     #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
