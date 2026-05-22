@@ -1,6 +1,7 @@
 from django.core.cache import cache
 from django.core.mail import send_mail, mail_admins, EmailMessage, BadHeaderError
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from .tasks import notify_customers
 from templated_mail.mail import BaseEmailMessage
 from django.db.models import Q, F, Func  # Q for using or operator etc, F for refference fields
@@ -138,6 +139,7 @@ import requests
     #notify_customers.delay('Hello, customers!')
 
 class HelloView(APIView):
+    @method_decorator(cache_page(5 * 60))
     def get(self, request):
         response = requests.get('https://httpbin.org/delay/1')
         data = response.json()  
@@ -150,4 +152,4 @@ class HelloView(APIView):
     
     # return render(request, 'hello.html', {'name': 'Sharar'})
     #return render(request, 'hello.html', {'name': 'Sharar', 'result': list(queryset)}) 
-    #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
+ #return render(request, 'hello.html', {'name': 'Sharar', 'products': list(product)}) 
