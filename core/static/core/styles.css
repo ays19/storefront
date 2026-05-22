@@ -1,0 +1,22 @@
+body { 
+  margin: 0;
+}
+
+.home-page { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFEFE;
+  height: 10vh;
+  width: 10vw;
+}
+
+.logo {
+  width: 500px;
+}
+
+.thumbnail {
+  object-fit: cover;
+  width: 70px;
+  height: 70px;
+}
