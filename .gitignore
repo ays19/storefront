@@ -1,5 +1,9 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.pyc
+/media/
+/static/
+
 *.py[codz]
 *$py.class
 
