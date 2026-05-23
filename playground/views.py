@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from django.core.mail import send_mail, mail_admins, EmailMessage, BadHeaderError
+from django.core.mail import send_mail, mail_admins, EmailMessage
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from .tasks import notify_customers
