@@ -16,6 +16,7 @@ from store.models import Product
 from tags.models import TaggedItem
 from django.views.decorators.cache import cache_page 
 from rest_framework.views import APIView
+import logging
 import requests
 
 
@@ -139,7 +140,7 @@ import requests
     #notify_customers.delay('Hello, customers!')
 
 class HelloView(APIView):
-    @method_decorator(cache_page(5 * 60))
+    #@method_decorator(cache_page(5 * 60))
     def get(self, request):
         response = requests.get('https://httpbin.org/delay/1')
         data = response.json()  
