@@ -139,11 +139,19 @@ import requests
     #     pass
     #notify_customers.delay('Hello, customers!')
 
+
+logger = logging.getLogger(__name__)
+
 class HelloView(APIView):
     #@method_decorator(cache_page(5 * 60))
     def get(self, request):
-        response = requests.get('https://httpbin.org/delay/1')
-        data = response.json()  
+        try:
+            logger.info('Calling httpbin')
+            response = requests.get('https://httpbin.org/delay/1')
+            logger.info('Received response from httpbin')
+            data = response.json()
+        except requests.ConnectionError:
+            logger.critical('httpbin is offline')
         return render(request, 'hello.html', {'name': 'Sharar'})
 
 # @cache_page(5 * 60)

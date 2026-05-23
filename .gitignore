@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 /media/
 /static/
+general.log
 
 *.py[codz]
 *$py.class
