@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "45d0b46e5598b3421796a7c80d896c7b806529d66f0c1609b4b8ce3fdbe83722"
+            "sha256": "8ca2b33bf5272d7aaa209fb29a2f8e0e56fbaeb22deb2f79c60c34a978225fae"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -422,6 +422,15 @@
             "markers": "python_version >= '3.9'",
             "version": "==6.0.0"
         },
+        "django-silk": {
+            "hashes": [
+                "sha256:41fcabe65d59d31ccdb69daeb3c3e6d30879ab2c00b0875b111fda0f69aec065",
+                "sha256:82b5a690d623935be916dd145e2f605a4ac9454d54e03df6a7ffcf38333c8444"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.10'",
+            "version": "==5.5.0"
+        },
         "django-templated-mail": {
             "hashes": [
                 "sha256:8db807effebb42a532622e2d142dfd453dafcd0d7794c4c3332acb90656315f9",
@@ -474,6 +483,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==2.0.1"
+        },
+        "gprof2dot": {
+            "hashes": [
+                "sha256:0742e4c0b4409a5e8777e739388a11e1ed3750be86895655312ea7c20bd0090e",
+                "sha256:35743e2d2ca027bf48fa7cba37021aaf4a27beeae1ae8e05a50b55f1f921a6ce"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==2025.4.14"
         },
         "gunicorn": {
             "hashes": [
