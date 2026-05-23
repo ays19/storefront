@@ -1,0 +1,3 @@
+[deploy]
+startCommand = "gunicorn storefront.wsgi"
+releaseCommand = "python manage.py migrate"
