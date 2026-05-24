@@ -16,6 +16,7 @@ Most Django projects stop at basic CRUD. This one goes further:
 - 🔐 **JWT authentication** with Djoser — register, login, token refresh, user profile
 - 🛒 **UUID-based cart system** — carts can't be enumerated or guessed by clients
 - ⚛️ **Atomic order transactions** — cart-to-order conversion is fully atomic; no partial data
+- 🗄️ **Django ORM optimization** — `annotate()`, `select_related()`, `prefetch_related()`, `only()`, and `bulk_create()` used throughout to minimize queries and maximize performance
 - 📡 **Django Signals** — order creation triggers decoupled downstream events
 - 👥 **Group-based permissions** — scalable access control, not per-user assignments
 - ⚙️ **Celery + Redis** — async background tasks with scheduled jobs via Celery Beat
@@ -32,6 +33,7 @@ Most Django projects stop at basic CRUD. This one goes further:
 |---|---|
 | Language | Python 3.12 |
 | Framework | Django 6.0.4 + Django REST Framework |
+| ORM | Django ORM (annotations, select_related, prefetch_related, bulk_create) |
 | Database | MySQL 8.0 |
 | Cache & Broker | Redis |
 | Auth | JWT (SimpleJWT + Djoser) |
@@ -77,6 +79,22 @@ storefront/
 ---
 
 ## 🔑 Key Engineering Decisions
+
+### Django ORM Optimization
+```python
+# Annotating querysets instead of extra queries
+Collection.objects.annotate(products_count=Count('products'))
+
+# Avoiding N+1 with select_related and prefetch_related
+Cart.objects.prefetch_related('items__product').all()
+Customer.objects.select_related('user').all()
+
+# Bulk insert instead of N individual queries
+OrderItem.objects.bulk_create(order_items)
+
+# Fetch only needed fields
+Customer.objects.only('id').get(user_id=user.id)
+```
 
 ### UUID Cart IDs
 ```python
