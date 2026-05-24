@@ -27,3 +27,9 @@ Pipfile.lock
 
 # Secrets
 access_token
+
+#Docker
+Dockerfile
+docker-compose.yml
+docker-entrypoint.sh
+wait-for-it.sh
