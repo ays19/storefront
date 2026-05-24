@@ -34,3 +34,5 @@ CACHES = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CSRF_TRUSTED_ORIGINS = ['https://' + host for host in os.environ.get('ALLOWED_HOSTS', '').split(',') if host]
