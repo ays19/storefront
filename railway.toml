@@ -1,6 +1,6 @@
 [build]
-buildCommand = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+buildCommand = "pip install -r requirements.txt"
 
 [deploy]
 startCommand = "gunicorn storefront.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
-releaseCommand = "python manage.py migrate"
+releaseCommand = "python manage.py migrate && python manage.py collectstatic --noinput"
