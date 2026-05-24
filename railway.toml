@@ -3,4 +3,4 @@ buildCommand = "pip install -r requirements.txt && python manage.py collectstati
 
 [deploy]
 startCommand = "gunicorn storefront.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
-releaseCommand = "python manage.py migrate && python manage.py create_superuser_env"
+releaseCommand = "python manage.py migrate && python manage.py shell -c \"from core.models import User; print(list(User.objects.values('username','email','is_superuser')))\""
