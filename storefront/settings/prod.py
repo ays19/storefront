@@ -11,7 +11,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['MYSQLDB'] or os.environ['MYSQL_DATABASE'],
+        'NAME': os.environ['MYSQL_DATABASE'],
         'USER': os.environ['MYSQLUSER'],
         'PASSWORD': os.environ['MYSQLPASSWORD'],
         'HOST': os.environ['MYSQLHOST'],
