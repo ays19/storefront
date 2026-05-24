@@ -1,6 +1,29 @@
+# Python cache - all levels (** matches nested directories)
+**/__pycache__/
 __pycache__/
 *.pyc
 *.pyo
+
+# Version control
 .git/
+
+# Dev tools
+.vscode/
+.pytest_cache/
+locustfiles/
+pytest.ini
+
+# Logs and runtime files
 general.log
+celerybeat-schedule
+celerybeat.pid
+
+# Media uploads (use object storage in production)
 media/
+
+# Pipenv (Railway uses requirements.txt)
+Pipfile
+Pipfile.lock
+
+# Secrets
+access_token
