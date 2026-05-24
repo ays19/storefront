@@ -3,4 +3,4 @@ buildCommand = "pip install -r requirements.txt && python manage.py collectstati
 
 [deploy]
 startCommand = "gunicorn storefront.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
-releaseCommand = "python manage.py migrate"
+releaseCommand = "python manage.py migrate && python manage.py create_superuser_env"
