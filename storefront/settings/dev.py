@@ -12,17 +12,15 @@ SECRET_KEY = 'django-insecure-13p)axebk7x&91cylaxo*+6rnid%vtozwig+mnurj4!-x7#eq(
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'storefront3',
-        'USER': 'root',
-        'PASSWORD': 'Ays19@Ubuntu26',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'CONN_MAX_AGE': 600,
+        'NAME': os.environ.get('MYSQL_DATABASE', 'storefront3'),
+        'USER': os.environ.get('MYSQLUSER', 'root'),
+        'PASSWORD': os.environ.get('MYSQLPASSWORD', 'MyPassword'),
+        'HOST': os.environ.get('MYSQLHOST', 'localhost'),
+        'PORT': os.environ.get('MYSQLPORT', '3306'),
     }
 }
 
-CELERY_BROKER_URL   = 'redis://localhost:6379/1'
-
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/1')
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",

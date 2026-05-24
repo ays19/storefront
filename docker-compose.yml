@@ -2,7 +2,9 @@ version: '3.9'
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.local
     command: ./wait-for-it.sh mysql:3306 -- ./docker-entrypoint.sh
     ports:
       - 8000:8000
@@ -51,7 +53,9 @@ services:
     restart: always
 
   celery:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.local
     command: ./wait-for-it.sh mysql:3306 -- celery -A storefront.celery worker --pool=solo --loglevel=info
     depends_on:
       - redis
@@ -63,11 +67,14 @@ services:
       - MYSQLPASSWORD=MyPassword
       - MYSQLHOST=mysql
       - MYSQLPORT=3306
+      - CELERY_BROKER_URL=redis://redis:6379/1
     volumes:
       - .:/app
 
   celery-beat:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.local
     command: ./wait-for-it.sh redis:6379 -- celery -A storefront beat --loglevel=info
     depends_on:
       - redis
@@ -78,11 +85,14 @@ services:
       - MYSQLPASSWORD=MyPassword
       - MYSQLHOST=mysql
       - MYSQLPORT=3306
+      - CELERY_BROKER_URL=redis://redis:6379/1 
     volumes:
       - .:/app
 
   flower:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.local
     command: ./wait-for-it.sh redis:6379 -- celery -A storefront flower
     depends_on:
       - web
@@ -90,13 +100,15 @@ services:
       - celery
     environment:
       - DJANGO_SETTINGS_MODULE=storefront.settings.dev
-      - CELERY_BROKER=redis://redis:6379/1
+      - CELERY_BROKER_URL=redis://redis:6379/1
       - CELERY_BACKEND=redis://redis:6379/1
     ports:
       - 5555:5555
 
   tests:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.local
     command: ./wait-for-it.sh mysql:3306 -- ptw
     depends_on:
       - redis

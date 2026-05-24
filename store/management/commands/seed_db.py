@@ -22,4 +22,7 @@ class Command(BaseCommand):
         sql = Path(file_path).read_text()
 
         with connection.cursor() as cursor:
-            cursor.execute(sql)
+            for statement in sql.split(';'):
+                statement = statement.strip()
+                if statement:
+                    cursor.execute(statement)
